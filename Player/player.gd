@@ -2,8 +2,10 @@ extends CharacterBody3D
 
 
 const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
 
+@export var jump_height: float = 1.0
+@export var fall_multiplier: float = 2.5
+@export var camera_sensibility: float = 1.2
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -11,21 +13,23 @@ var mouse_motion := Vector2.ZERO
 @onready var camera_pivot = $CameraPivot
 
 
-
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _physics_process(delta):
-	handle_camera_rotation()
+	handle_camera_rotation(delta)
 	
 	# Add the gravity.
 	if not is_on_floor():
-		velocity.y -= gravity * delta
+		if velocity.y >=0:
+			velocity.y -= gravity * delta
+		else:
+			velocity.y -= gravity * delta * fall_multiplier
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = sqrt(jump_height * 2.0 * gravity)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -46,8 +50,9 @@ func _input(event):
 		mouse_motion = -event.relative * 0.001
 
 
-func handle_camera_rotation() -> void:
-	rotate_y(mouse_motion.x)
-	camera_pivot.rotate_x(mouse_motion.y)
-	camera_pivot.rotation_degrees.x = clampf(camera_pivot.rotation_degrees.x, -90.0, 90)
+func handle_camera_rotation(delta:float) -> void:
+	rotate_y(mouse_motion.x * camera_sensibility)
+	camera_pivot.rotate_x(mouse_motion.y * camera_sensibility)
+	camera_pivot.rotation_degrees.x = clampf(
+		camera_pivot.rotation_degrees.x, -90.0, 90)
 	mouse_motion = Vector2.ZERO
