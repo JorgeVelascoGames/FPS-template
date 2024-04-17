@@ -6,6 +6,8 @@ extends CharacterBody3D
 @export var speed = 5.0
 const JUMP_VELOCITY = 4.5
 
+@export var attack_range: float = 1.5
+
 var player
 var provoke := false
 @export var aggro_range := 12.0
@@ -25,18 +27,21 @@ func _process(_delta: float) -> void:
 
 func _physics_process(_delta: float) -> void:
 	var distance = global_position.distance_to(player.global_position)
-	var direction: Vector3
 	if distance < aggro_range:
 		provoke = true
 	
+	if provoke and distance < attack_range:
+		print("Enemy attack!")
+	
 	var next_position = navigation_agent_3d.get_next_path_position()
-	direction = global_position.direction_to(next_position)
+	var direction = global_position.direction_to(next_position)
 	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * _delta
 	
 	if direction:
+		look_at_target(direction)
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
 	else:
@@ -44,3 +49,10 @@ func _physics_process(_delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, speed)
 	
 	move_and_slide()
+
+
+func look_at_target(direction: Vector3) -> void:
+	var adjusted_direction = direction
+	adjusted_direction.y = 0
+	
+	look_at(global_position + adjusted_direction, Vector3.UP, true)

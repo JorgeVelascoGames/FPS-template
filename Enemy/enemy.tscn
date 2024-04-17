@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://38j6r38bon4a"]
+[gd_scene load_steps=6 format=3 uid="uid://38j6r38bon4a"]
 
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_kexvc"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_85g4j"]
-albedo_color = Color(1, 0.215686, 0.266667, 1)
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o6m7p"]
-material = SubResource("StandardMaterial3D_85g4j")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kbevj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dssjv"]
+size = Vector3(0.5, 0.2, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a6w1d"]
+albedo_color = Color(1, 0.321569, 0.278431, 1)
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_kexvc")
@@ -22,3 +24,8 @@ shape = SubResource("CapsuleShape3D_kbevj")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 debug_enabled = true
+
+[node name="Visor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
+mesh = SubResource("BoxMesh_dssjv")
+surface_material_override/0 = SubResource("StandardMaterial3D_a6w1d")
