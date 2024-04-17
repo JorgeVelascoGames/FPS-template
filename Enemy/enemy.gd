@@ -7,6 +7,8 @@ extends CharacterBody3D
 const JUMP_VELOCITY = 4.5
 
 var player
+var provoke := false
+@export var aggro_range := 12.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -17,13 +19,19 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	navigation_agent_3d.target_position = player.global_position
-	
+	if provoke:
+		navigation_agent_3d.target_position = player.global_position
 
 
 func _physics_process(_delta: float) -> void:
+	var distance = global_position.distance_to(player.global_position)
+	var direction: Vector3
+	if distance < aggro_range:
+		provoke = true
+	
 	var next_position = navigation_agent_3d.get_next_path_position()
-	var direction = global_position.direction_to(next_position)
+	direction = global_position.direction_to(next_position)
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * _delta
