@@ -26,6 +26,10 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	movement_process(_delta);
+
+
+func movement_process(_delta: float) -> void:
 	var distance = global_position.distance_to(player.global_position)
 	if distance < aggro_range:
 		provoke = true

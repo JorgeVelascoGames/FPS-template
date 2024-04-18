@@ -1,15 +1,19 @@
 extends CharacterBody3D
 
 
-const SPEED = 5.0
 
+@export var speed = 5.0
 @export var jump_height: float = 1.0
 @export var fall_multiplier: float = 2.5
 @export var camera_sensibility: float = 1.2
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+#Private variables
 var mouse_motion := Vector2.ZERO
+
+#Components
 @onready var camera_pivot = $CameraPivot
 
 
@@ -36,11 +40,11 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		velocity.x = direction.x * speed
+		velocity.z = direction.z * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.z = move_toward(velocity.z, 0, speed)
 
 	move_and_slide()
 
