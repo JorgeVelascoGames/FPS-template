@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://38j6r38bon4a"]
+[gd_scene load_steps=10 format=3 uid="uid://38j6r38bon4a"]
 
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_kexvc"]
+[ext_resource type="PackedScene" uid="uid://w0ax75odo1ha" path="res://components/health.tscn" id="2_6a5fl"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o6m7p"]
 
@@ -11,6 +12,105 @@ size = Vector3(0.5, 0.2, 0.2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a6w1d"]
 albedo_color = Color(1, 0.321569, 0.278431, 1)
+
+[sub_resource type="Animation" id="Animation_5ckoh"]
+resource_name = "Attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector3(0, 0.5, 0.5), Vector3(0, 0.5, 0.6), Vector3(0, 0.5, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visor:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.5, 1.5, 1.5), Vector3(1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visor:surface_material_override/0:albedo_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Color(1, 0.321569, 0.278431, 1), Color(1, 1, 1, 1), Color(1, 0.321569, 0.278431, 1)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_pbamj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.5, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visor:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visor:surface_material_override/0:albedo_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.321569, 0.278431, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ak0y0"]
+_data = {
+"Attack": SubResource("Animation_5ckoh"),
+"RESET": SubResource("Animation_pbamj")
+}
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_kexvc")
@@ -29,3 +129,14 @@ debug_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
 mesh = SubResource("BoxMesh_dssjv")
 surface_material_override/0 = SubResource("StandardMaterial3D_a6w1d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ak0y0")
+}
+
+[node name="Health" parent="." instance=ExtResource("2_6a5fl")]
+max_health = 200
+
+[connection signal="health_minimun_reached" from="Health" to="." method="_on_health_health_minimun_reached"]
+[connection signal="taken_damage" from="Health" to="." method="_on_health_taken_damage"]

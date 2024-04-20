@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://m6pypgl566n1"]
+[gd_scene load_steps=8 format=3 uid="uid://m6pypgl566n1"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_ref5g"]
 [ext_resource type="Script" path="res://Player/smooth_camera.gd" id="2_cywkd"]
 [ext_resource type="Script" path="res://Player/crosshair.gd" id="3_282xj"]
+[ext_resource type="PackedScene" uid="uid://djc7a37f3h0ne" path="res://weapons/smg_weapon.tscn" id="3_akwn2"]
+[ext_resource type="PackedScene" uid="uid://w0ax75odo1ha" path="res://components/health.tscn" id="5_acel2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_fyred"]
 
@@ -25,6 +27,8 @@ top_level = true
 script = ExtResource("2_cywkd")
 speed = 20.0
 
+[node name="SMGWeapon" parent="CameraPivot/Camera3D" instance=ExtResource("3_akwn2")]
+
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,3 +39,5 @@ grow_vertical = 2
 [node name="Control" type="Control" parent="CenterContainer"]
 layout_mode = 2
 script = ExtResource("3_282xj")
+
+[node name="Health" parent="." instance=ExtResource("5_acel2")]

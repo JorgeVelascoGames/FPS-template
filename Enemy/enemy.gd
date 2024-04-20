@@ -2,6 +2,7 @@ class_name Enemy
 extends CharacterBody3D
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var speed = 5.0
 const JUMP_VELOCITY = 4.5
@@ -35,7 +36,7 @@ func movement_process(_delta: float) -> void:
 		provoke = true
 	
 	if provoke and distance < attack_range:
-		print("Enemy attack!")
+		animation_player.play("Attack")
 	
 	var next_position = navigation_agent_3d.get_next_path_position()
 	var direction = global_position.direction_to(next_position)
@@ -60,3 +61,16 @@ func look_at_target(direction: Vector3) -> void:
 	adjusted_direction.y = 0
 	
 	look_at(global_position + adjusted_direction, Vector3.UP, true)
+
+
+func attack() -> void:
+	player.health.damage(10)
+	print("Enemy Attack!");
+
+
+func _on_health_health_minimun_reached() -> void:
+	queue_free()
+
+
+func _on_health_taken_damage(dmg: int) -> void:
+	provoke = true

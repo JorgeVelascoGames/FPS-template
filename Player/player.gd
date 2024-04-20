@@ -15,6 +15,7 @@ var mouse_motion := Vector2.ZERO
 
 #Components
 @onready var camera_pivot = $CameraPivot
+@onready var health: Health = $Health
 
 
 func _ready():
