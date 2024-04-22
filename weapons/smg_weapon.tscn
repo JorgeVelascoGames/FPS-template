@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://djc7a37f3h0ne"]
+[gd_scene load_steps=9 format=3 uid="uid://djc7a37f3h0ne"]
 
 [ext_resource type="PackedScene" uid="uid://db8mi152yn4gx" path="res://weapons/hitscan_weapon.tscn" id="1_gcfl4"]
+[ext_resource type="PackedScene" uid="uid://qhqvktnunb03" path="res://weapons/sparks.tscn" id="2_6dmvx"]
 [ext_resource type="PackedScene" uid="uid://c7pdmnd346ave" path="res://weapons/SMG.glb" id="2_mpivm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_180js"]
@@ -27,11 +28,9 @@ scale_curve = SubResource("CurveTexture_56ila")
 size = Vector3(0.1, 0.1, 0.1)
 
 [node name="SMGWeapon" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_gcfl4")]
-weapon_damage = 10
-fire_rate = 14.0
-recoil = 0.05
 weapon_mesh = NodePath("SMG")
 muzzle_flash = NodePath("MuzzleFlash")
+sparks = ExtResource("2_6dmvx")
 
 [node name="SMG" parent="." index="1" instance=ExtResource("2_mpivm")]
 transform = Transform3D(0.992546, 0.0127388, 0.121202, 0, 0.994522, -0.104528, -0.121869, 0.103749, 0.987109, 0.27, -0.245, -0.415)
