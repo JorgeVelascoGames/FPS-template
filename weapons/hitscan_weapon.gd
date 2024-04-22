@@ -5,6 +5,7 @@ extends Node3D
 @export var fire_rate :float = 14.0
 @export var recoil :float = 0.05
 @export var weapon_mesh : Node3D
+@export var muzzle_flash: GPUParticles3D
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var weapon_mesh_init_position : Vector3 = weapon_mesh.position
@@ -21,6 +22,7 @@ func _process(delta: float) -> void:
 
 
 func shoot() -> void:
+	muzzle_flash.restart()
 	weapon_mesh.position.z += recoil
 	cooldown_timer.start(1.0/ fire_rate)
 	

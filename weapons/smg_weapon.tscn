@@ -1,22 +1,51 @@
-[gd_scene load_steps=5 format=3 uid="uid://djc7a37f3h0ne"]
+[gd_scene load_steps=8 format=3 uid="uid://djc7a37f3h0ne"]
 
 [ext_resource type="PackedScene" uid="uid://db8mi152yn4gx" path="res://weapons/hitscan_weapon.tscn" id="1_gcfl4"]
 [ext_resource type="PackedScene" uid="uid://c7pdmnd346ave" path="res://weapons/SMG.glb" id="2_mpivm"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_180js"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="Curve" id="Curve_42odn"]
+_data = [Vector2(0.00701755, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_56ila"]
+curve = SubResource("Curve_42odn")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fmph4"]
+direction = Vector3(0, 0, -1)
+spread = 9.231
+initial_velocity_min = 6.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_56ila")
 
 [sub_resource type="BoxMesh" id="BoxMesh_8bigi"]
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="SMGWeapon" node_paths=PackedStringArray("weapon_mesh") instance=ExtResource("1_gcfl4")]
+[node name="SMGWeapon" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_gcfl4")]
+weapon_damage = 10
+fire_rate = 14.0
+recoil = 0.05
 weapon_mesh = NodePath("SMG")
+muzzle_flash = NodePath("MuzzleFlash")
 
 [node name="SMG" parent="." index="1" instance=ExtResource("2_mpivm")]
 transform = Transform3D(0.992546, 0.0127388, 0.121202, 0, 0.994522, -0.104528, -0.121869, 0.103749, 0.987109, 0.27, -0.245, -0.415)
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137044, -0.0897435, -1.50168)
+[node name="MuzzleFlash" type="GPUParticles3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137044, -0.0897435, -1.50696)
+material_override = SubResource("StandardMaterial3D_180js")
+cast_shadow = 0
+emitting = false
+lifetime = 0.07
+one_shot = true
 explosiveness = 1.0
+fixed_fps = 60
 visibility_aabb = AABB(-3.57688, -4, -4, 7.15377, 8, 8)
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_fmph4")
 draw_pass_1 = SubResource("BoxMesh_8bigi")
