@@ -29,14 +29,43 @@ size = Vector3(0.1, 0.1, 0.1)
 
 [node name="SMGWeapon" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_gcfl4")]
 weapon_mesh = NodePath("SMG")
-muzzle_flash = NodePath("MuzzleFlash")
+muzzle_flash = NodePath("SMG/MuzzleFlash")
 sparks = ExtResource("2_6dmvx")
 
 [node name="SMG" parent="." index="1" instance=ExtResource("2_mpivm")]
-transform = Transform3D(0.992546, 0.0127388, 0.121202, 0, 0.994522, -0.104528, -0.121869, 0.103749, 0.987109, 0.27, -0.245, -0.415)
+transform = Transform3D(0.992673, 0, 0.12083, 0.00820355, 0.997693, -0.067396, -0.120551, 0.0678934, 0.990383, 0.427146, -0.299338, -0.731749)
 
-[node name="MuzzleFlash" type="GPUParticles3D" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137044, -0.0897435, -1.50696)
+[node name="Suppressors_003" parent="SMG" index="0"]
+transform = Transform3D(-2.98023e-08, 0, 2.5, -2.98023e-08, 2.5, 3.72529e-09, -2.5, 0, 0, 2.98023e-08, 0.0476248, -0.831521)
+layers = 2
+
+[node name="Part_024" parent="SMG" index="1"]
+layers = 2
+
+[node name="Rail_009" parent="SMG" index="2"]
+layers = 2
+
+[node name="Grip_017" parent="SMG" index="3"]
+layers = 2
+
+[node name="Charger_011" parent="SMG" index="4"]
+layers = 2
+
+[node name="Scope_016" parent="SMG" index="5"]
+layers = 2
+
+[node name="Part_029" parent="SMG" index="6"]
+layers = 2
+
+[node name="Part_030" parent="SMG" index="7"]
+layers = 2
+
+[node name="Gun butt_012" parent="SMG" index="8"]
+layers = 2
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="SMG" index="9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00326757, 0.0456734, -1.09372)
+layers = 2
 material_override = SubResource("StandardMaterial3D_180js")
 cast_shadow = 0
 emitting = false
@@ -48,3 +77,5 @@ visibility_aabb = AABB(-3.57688, -4, -4, 7.15377, 8, 8)
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_fmph4")
 draw_pass_1 = SubResource("BoxMesh_8bigi")
+
+[editable path="SMG"]
