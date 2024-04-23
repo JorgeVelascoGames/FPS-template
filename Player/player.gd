@@ -15,7 +15,8 @@ var mouse_motion := Vector2.ZERO
 
 #Components
 @onready var camera_pivot = $CameraPivot
-@onready var health: Health = $Health
+@onready var health: Health = $Components/Health
+@onready var damage_animation_player: AnimationPlayer = $DamageTexture/DamageAnimationPlayer
 
 
 func _ready():
@@ -61,3 +62,8 @@ func handle_camera_rotation(delta:float) -> void:
 	camera_pivot.rotation_degrees.x = clampf(
 		camera_pivot.rotation_degrees.x, -90.0, 90)
 	mouse_motion = Vector2.ZERO
+
+
+func _on_health_taken_damage(dmg: int) -> void:
+	damage_animation_player.stop(false)
+	damage_animation_player.play("TakeDamage")
