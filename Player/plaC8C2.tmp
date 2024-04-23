@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://m6pypgl566n1"]
+[gd_scene load_steps=14 format=3 uid="uid://m6pypgl566n1"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_ref5g"]
 [ext_resource type="Script" path="res://player/smooth_camera.gd" id="2_cywkd"]
 [ext_resource type="Script" path="res://player/crosshair.gd" id="3_282xj"]
+[ext_resource type="PackedScene" uid="uid://uneq28fl7o88" path="res://weapons/rifle_weapon.tscn" id="4_a74fd"]
 [ext_resource type="PackedScene" uid="uid://b3tg1w6co05r2" path="res://player/weapon_handler.tscn" id="5_abscn"]
 [ext_resource type="PackedScene" uid="uid://w0ax75odo1ha" path="res://components/health.tscn" id="5_acel2"]
 [ext_resource type="Texture2D" uid="uid://di7tj31llxo0i" path="res://player/damage.png" id="6_km1pl"]
@@ -98,6 +99,8 @@ speed = 20.0
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/Camera3D"]
 remote_path = NodePath("../../../SubViewportContainer/SubViewport/WeaponCamera")
+
+[node name="RifleWeapon" parent="CameraPivot/Camera3D" instance=ExtResource("4_a74fd")]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15

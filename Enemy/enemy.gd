@@ -72,5 +72,5 @@ func _on_health_health_minimun_reached() -> void:
 	queue_free()
 
 
-func _on_health_taken_damage(dmg: int) -> void:
+func _on_health_taken_damage(_dmg: int) -> void:
 	provoke = true

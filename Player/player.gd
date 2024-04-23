@@ -1,7 +1,6 @@
 extends CharacterBody3D
 
 
-
 @export var speed = 5.0
 @export var jump_height: float = 1.0
 @export var fall_multiplier: float = 2.5
@@ -57,7 +56,7 @@ func _input(event):
 		mouse_motion = -event.relative * 0.001
 
 
-func handle_camera_rotation(delta:float) -> void:
+func handle_camera_rotation(_delta:float) -> void:
 	rotate_y(mouse_motion.x * camera_sensibility)
 	camera_pivot.rotate_x(mouse_motion.y * camera_sensibility)
 	camera_pivot.rotation_degrees.x = clampf(
@@ -65,7 +64,7 @@ func handle_camera_rotation(delta:float) -> void:
 	mouse_motion = Vector2.ZERO
 
 
-func _on_health_taken_damage(dmg: int) -> void:
+func _on_health_taken_damage(_dmg: int) -> void:
 	damage_animation_player.stop(false)
 	damage_animation_player.play("TakeDamage")
 

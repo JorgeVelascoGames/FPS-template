@@ -1,7 +1,7 @@
 class_name Hitscan
 extends Node3D
 
-@export var automatic: bool
+@export var automatic: bool = false
 @export var weapon_damage: int = 10
 @export var fire_rate :float = 14.0
 @export var recoil :float = 0.05
