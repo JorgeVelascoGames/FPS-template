@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://db8mi152yn4gx" path="res://weapons/hitscan_weapon.tscn" id="1_gcfl4"]
 [ext_resource type="PackedScene" uid="uid://qhqvktnunb03" path="res://weapons/sparks.tscn" id="2_6dmvx"]
-[ext_resource type="PackedScene" uid="uid://c7pdmnd346ave" path="res://weapons/SMG.glb" id="2_mpivm"]
+[ext_resource type="PackedScene" uid="uid://c7pdmnd346ave" path="res://weapons/models/SMG.glb" id="2_mpivm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_180js"]
 emission_enabled = true
@@ -28,6 +28,7 @@ scale_curve = SubResource("CurveTexture_56ila")
 size = Vector3(0.1, 0.1, 0.1)
 
 [node name="SMGWeapon" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_gcfl4")]
+automatic = true
 weapon_mesh = NodePath("SMG")
 muzzle_flash = NodePath("SMG/MuzzleFlash")
 sparks = ExtResource("2_6dmvx")

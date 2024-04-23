@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c7pdmnd346ave"
-path="res://.godot/imported/SMG.glb-3485d19dde2b0ca70b93207519c0aa2f.scn"
+uid="uid://co7jwre0fb4ln"
+path="res://.godot/imported/Rifle.glb-86916a35032f4888394f29cbb51cda08.scn"
 
 [deps]
 
-source_file="res://weapons/SMG.glb"
-dest_files=["res://.godot/imported/SMG.glb-3485d19dde2b0ca70b93207519c0aa2f.scn"]
+source_file="res://assets/fonts/Rifle.glb"
+dest_files=["res://.godot/imported/Rifle.glb-86916a35032f4888394f29cbb51cda08.scn"]
 
 [params]
 
