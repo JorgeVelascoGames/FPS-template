@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://m6pypgl566n1"]
+[gd_scene load_steps=16 format=3 uid="uid://m6pypgl566n1"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_ref5g"]
 [ext_resource type="Script" path="res://player/smooth_camera.gd" id="2_cywkd"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://w0ax75odo1ha" path="res://components/health.tscn" id="5_acel2"]
 [ext_resource type="Texture2D" uid="uid://di7tj31llxo0i" path="res://player/damage.png" id="6_km1pl"]
 [ext_resource type="PackedScene" uid="uid://bjq2dkpgpnav7" path="res://player/game_over_menu.tscn" id="7_keanm"]
+[ext_resource type="FontFile" uid="uid://yqk87iw0ykxp" path="res://assets/fonts/Roboto-Regular.ttf" id="8_dofuu"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_fyred"]
 
@@ -74,6 +75,10 @@ _data = {
 "TakeDamage": SubResource("Animation_2b66e")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_cswfq"]
+font = ExtResource("8_dofuu")
+font_size = 64
+
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_ref5g")
 
@@ -84,6 +89,10 @@ mesh = SubResource("CapsuleMesh_fyred")
 
 [node name="Health" parent="Components" instance=ExtResource("5_acel2")]
 max_health = 50
+
+[node name="AmmoHandler" type="Node" parent="Components" node_paths=PackedStringArray("ammo_label")]
+script = ExtResource("4_k877d")
+ammo_label = NodePath("../../MarginContainer/AmmoLabel")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_6wihg")
@@ -99,9 +108,6 @@ speed = 20.0
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/Camera3D"]
 remote_path = NodePath("../../../SubViewportContainer/SubViewport/WeaponCamera")
-
-[node name="AmmoHandler" type="Node" parent="."]
-script = ExtResource("4_k877d")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15
@@ -122,7 +128,7 @@ cull_mask = 2
 fov = 40.0
 
 [node name="WeaponHandler" parent="SubViewportContainer/SubViewport/WeaponCamera" node_paths=PackedStringArray("ammo_handler") instance=ExtResource("5_abscn")]
-ammo_handler = NodePath("../../../../AmmoHandler")
+ammo_handler = NodePath("../../../../Components/AmmoHandler")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
@@ -151,6 +157,25 @@ texture = ExtResource("6_km1pl")
 libraries = {
 "": SubResource("AnimationLibrary_xp5da")
 }
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="AmmoLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "999"
+label_settings = SubResource("LabelSettings_cswfq")
 
 [node name="GameOverMenu" parent="." instance=ExtResource("7_keanm")]
 visible = false

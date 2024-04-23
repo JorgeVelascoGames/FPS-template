@@ -18,6 +18,7 @@ func equip(active_weapon: Node3D) -> void:
 		else:
 			child.visible = false
 			child.set_process(false)
+	ammo_handler.update_ammo_label(active_weapon.ammo_type)
 
 
 func _unhandled_input(event: InputEvent) -> void:
