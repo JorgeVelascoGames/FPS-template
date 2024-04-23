@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjq2dkpgpnav7"]
+[gd_scene load_steps=8 format=3 uid="uid://bjq2dkpgpnav7"]
 
 [ext_resource type="FontFile" uid="uid://yqk87iw0ykxp" path="res://assets/fonts/Roboto-Regular.ttf" id="1_m5pj6"]
 [ext_resource type="Script" path="res://player/game_over_menu.gd" id="2_xyt45"]
+[ext_resource type="Shader" uid="uid://m4ionommu674" path="res://player/game_over_menu.tres" id="3_ulhy6"]
 
 [sub_resource type="Theme" id="Theme_2yb2q"]
 default_font = ExtResource("1_m5pj6")
 default_font_size = 64
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i1o57"]
+shader = ExtResource("3_ulhy6")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_018q4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ado22"]
 font_size = 126
@@ -19,6 +25,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_2yb2q")
 script = ExtResource("2_xyt45")
+
+[node name="BackgroundBlur" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_i1o57")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_018q4")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
