@@ -1,15 +1,43 @@
-[gd_scene load_steps=12 format=3 uid="uid://m6pypgl566n1"]
+[gd_scene load_steps=13 format=3 uid="uid://m6pypgl566n1"]
 
-[ext_resource type="Script" path="res://Player/player.gd" id="1_ref5g"]
-[ext_resource type="Script" path="res://Player/smooth_camera.gd" id="2_cywkd"]
-[ext_resource type="Script" path="res://Player/crosshair.gd" id="3_282xj"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_ref5g"]
+[ext_resource type="Script" path="res://player/smooth_camera.gd" id="2_cywkd"]
+[ext_resource type="Script" path="res://player/crosshair.gd" id="3_282xj"]
 [ext_resource type="PackedScene" uid="uid://djc7a37f3h0ne" path="res://weapons/smg_weapon.tscn" id="3_akwn2"]
 [ext_resource type="PackedScene" uid="uid://w0ax75odo1ha" path="res://components/health.tscn" id="5_acel2"]
-[ext_resource type="Texture2D" uid="uid://di7tj31llxo0i" path="res://Player/damage.png" id="6_km1pl"]
+[ext_resource type="Texture2D" uid="uid://di7tj31llxo0i" path="res://player/damage.png" id="6_km1pl"]
+[ext_resource type="PackedScene" uid="uid://bjq2dkpgpnav7" path="res://player/game_over_menu.tscn" id="7_keanm"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_fyred"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6wihg"]
+
+[sub_resource type="Animation" id="Animation_yibg3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_2b66e"]
 resource_name = "TakeDamage"
@@ -39,33 +67,6 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_yibg3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xp5da"]
 _data = {
 "RESET": SubResource("Animation_yibg3"),
@@ -81,6 +82,7 @@ mesh = SubResource("CapsuleMesh_fyred")
 [node name="Components" type="Node" parent="."]
 
 [node name="Health" parent="Components" instance=ExtResource("5_acel2")]
+max_health = 50
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_6wihg")
@@ -143,4 +145,8 @@ libraries = {
 "": SubResource("AnimationLibrary_xp5da")
 }
 
+[node name="GameOverMenu" parent="." instance=ExtResource("7_keanm")]
+visible = false
+
+[connection signal="health_minimun_reached" from="Components/Health" to="." method="_on_health_health_minimun_reached"]
 [connection signal="taken_damage" from="Components/Health" to="." method="_on_health_taken_damage"]

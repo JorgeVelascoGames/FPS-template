@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://38j6r38bon4a"]
 
-[ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_kexvc"]
+[ext_resource type="Script" path="res://enemy/enemy.gd" id="1_kexvc"]
 [ext_resource type="PackedScene" uid="uid://w0ax75odo1ha" path="res://components/health.tscn" id="2_6a5fl"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o6m7p"]

@@ -17,6 +17,7 @@ var mouse_motion := Vector2.ZERO
 @onready var camera_pivot = $CameraPivot
 @onready var health: Health = $Components/Health
 @onready var damage_animation_player: AnimationPlayer = $DamageTexture/DamageAnimationPlayer
+@onready var game_over_menu: Control = $GameOverMenu
 
 
 func _ready():
@@ -67,3 +68,7 @@ func handle_camera_rotation(delta:float) -> void:
 func _on_health_taken_damage(dmg: int) -> void:
 	damage_animation_player.stop(false)
 	damage_animation_player.play("TakeDamage")
+
+
+func _on_health_health_minimun_reached() -> void:
+	game_over_menu.game_over()
