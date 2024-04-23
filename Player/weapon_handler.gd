@@ -2,10 +2,12 @@ extends Node3D
 
 @export var weapon_01: Node3D
 @export var weapon_02: Node3D
-
+@export var ammo_handler: AmmoHandler
 
 func _ready() -> void:
 	equip(weapon_01)
+	for child in get_children():
+		child.ammo_handler = ammo_handler
 
 
 func equip(active_weapon: Node3D) -> void:

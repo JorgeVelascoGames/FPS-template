@@ -2,12 +2,15 @@ class_name Hitscan
 extends Node3D
 
 @export var automatic: bool = false
+@export var ammo_type: AmmoHandler.ammo_type
 @export var weapon_damage: int = 10
 @export var fire_rate :float = 14.0
 @export var recoil :float = 0.05
 @export var weapon_mesh : Node3D
 @export var muzzle_flash: GPUParticles3D
 @export var sparks: PackedScene
+
+var ammo_handler: AmmoHandler
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var weapon_mesh_init_position : Vector3 = weapon_mesh.position
@@ -28,6 +31,8 @@ func _process(delta: float) -> void:
 
 
 func shoot() -> void:
+	if not ammo_handler.use_ammo(ammo_type):
+		return
 	muzzle_flash.restart()
 	weapon_mesh.position.z += recoil
 	cooldown_timer.start(1.0/ fire_rate)

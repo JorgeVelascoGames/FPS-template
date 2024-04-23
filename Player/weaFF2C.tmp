@@ -10,6 +10,10 @@ weapon_01 = NodePath("SMGWeapon")
 weapon_02 = NodePath("RifleWeapon")
 
 [node name="SMGWeapon" parent="." instance=ExtResource("2_wqgyl")]
-ammo_type = 1
+weapon_damage = null
+fire_rate = null
+recoil = null
 
 [node name="RifleWeapon" parent="." instance=ExtResource("3_rdjvd")]
+automatic = null
+recoil = null
