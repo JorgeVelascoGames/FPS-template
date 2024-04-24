@@ -5,6 +5,7 @@ extends CharacterBody3D
 @export var jump_height: float = 1.0
 @export var fall_multiplier: float = 2.5
 @export var camera_sensibility: float = 1.2
+@export var aim_multiplier: float = 0.3
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -18,10 +19,38 @@ var mouse_motion := Vector2.ZERO
 @onready var damage_animation_player: AnimationPlayer = $DamageTexture/DamageAnimationPlayer
 @onready var game_over_menu: Control = $GameOverMenu
 @onready var ammo_handler: AmmoHandler = $Components/AmmoHandler
-
+@onready var world_camera: Camera3D = $CameraPivot/WorldCamera
+@onready var original_world_camera_fov = world_camera.fov
+@onready var weapon_camera: Camera3D = $SubViewportContainer/SubViewport/WeaponCamera
+@onready var original_weapon_camera_fov = weapon_camera.fov
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func _process(delta: float) -> void:
+	if Input.is_action_pressed("aim"):
+		world_camera.fov = lerp(
+			world_camera.fov, original_world_camera_fov * 
+			aim_multiplier, 
+			delta * 20.0
+			) 
+		weapon_camera.fov = lerp(
+			weapon_camera.fov, original_weapon_camera_fov * 
+			aim_multiplier, 
+			delta * 20.0
+			)
+	else:
+		world_camera.fov = lerp(
+			world_camera.fov, 
+			original_weapon_camera_fov, 
+			delta * 20.0
+			)
+		weapon_camera.fov = lerp(
+			weapon_camera.fov, 
+			original_weapon_camera_fov, 
+			delta * 20.0
+			)
 
 
 func _physics_process(delta):
@@ -45,6 +74,9 @@ func _physics_process(delta):
 	if direction:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
+		if Input.is_action_pressed("aim"):
+			velocity.x *= aim_multiplier
+			velocity.z *= aim_multiplier
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
@@ -55,6 +87,9 @@ func _physics_process(delta):
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_motion = -event.relative * 0.001
+		if Input.is_action_pressed("aim"):
+			mouse_motion *= aim_multiplier / 2
+
 
 
 func handle_camera_rotation(_delta:float) -> void:
