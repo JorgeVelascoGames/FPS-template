@@ -38,11 +38,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 6)
 flip_faces = true
 size = Vector3(2, 2.5, 4)
 
-[node name="Corridor4" type="CSGBox3D" parent="BaseRoom/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -0.75, 6.5)
-flip_faces = true
-size = Vector3(2, 2.5, 7)
-
 [node name="Room2" type="CSGBox3D" parent="BaseRoom/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
 flip_faces = true
@@ -54,19 +49,9 @@ flip_faces = true
 size = Vector3(2, 2.5, 4)
 
 [node name="Room3" type="CSGBox3D" parent="BaseRoom/CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12, 0, 14)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -20, 4, 8)
 flip_faces = true
-size = Vector3(8, 4, 8)
-
-[node name="Corridor3" type="CSGBox3D" parent="BaseRoom/CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6, -0.75, -1)
-flip_faces = true
-size = Vector3(2, 2.5, 4)
-
-[node name="Room4" type="CSGBox3D" parent="BaseRoom/CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12, 0, -1)
-flip_faces = true
-size = Vector3(8, 4, 8)
+size = Vector3(48, 12, 24)
 
 [node name="Player" parent="." instance=ExtResource("2_p1gds")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

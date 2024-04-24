@@ -43,7 +43,6 @@ func shoot() -> void:
 	for child in collider.get_children():
 		if child is Health:
 			child.damage(weapon_damage)
-			return
 	
 	var spark = sparks.instantiate()
 	add_child(spark)

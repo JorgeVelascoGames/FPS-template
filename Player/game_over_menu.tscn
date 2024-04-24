@@ -55,6 +55,7 @@ label_settings = SubResource("LabelSettings_ado22")
 horizontal_alignment = 1
 
 [node name="RestartButton" type="Button" parent="CenterContainer/VBoxContainer"]
+process_mode = 3
 layout_mode = 2
 text = "PLAY AGAIN
 "
