@@ -17,6 +17,7 @@ var mouse_motion := Vector2.ZERO
 @onready var health: Health = $Components/Health
 @onready var damage_animation_player: AnimationPlayer = $DamageTexture/DamageAnimationPlayer
 @onready var game_over_menu: Control = $GameOverMenu
+@onready var ammo_handler: AmmoHandler = $Components/AmmoHandler
 
 
 func _ready():

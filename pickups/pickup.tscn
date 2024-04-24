@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://20375b2air63"]
+
+[ext_resource type="Script" path="res://pickups/pickup.gd" id="1_aihhf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mdswk"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jlmqe"]
+radius = 1.0
+
+[node name="Pickup" type="Area3D"]
+script = ExtResource("1_aihhf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, -0.707107, 0, 0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0, 0, 0)
+mesh = SubResource("BoxMesh_mdswk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_jlmqe")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

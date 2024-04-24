@@ -28,5 +28,10 @@ func has_ammo(type: ammo_type) -> bool:
 	return false
 
 
+func add_ammo(type: ammo_type, ammount: int) -> void:
+	ammo_storage[type] += ammount
+	update_ammo_label(type)
+
+
 func update_ammo_label(type: ammo_type) -> void:
 	ammo_label.text = str(ammo_storage[type]) 
