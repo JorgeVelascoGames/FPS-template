@@ -4,6 +4,8 @@ extends Node3D
 @export var weapon_02: Node3D
 @export var ammo_handler: AmmoHandler
 
+var current_active_weapon: Node3D
+
 func _ready() -> void:
 	equip(weapon_01)
 	for child in get_children():
@@ -18,7 +20,8 @@ func equip(active_weapon: Node3D) -> void:
 		else:
 			child.visible = false
 			child.set_process(false)
-	ammo_handler.update_ammo_label(active_weapon.ammo_type)
+	current_active_weapon = active_weapon
+	ammo_handler.update_ammo_label()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -47,5 +50,5 @@ func last_weapon() -> void:
 func get_current_index() -> int:
 	for index in get_child_count():
 		if get_child(index).visible:
-			return index	
+			return index
 	return 0

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://vigb1nxfkdg1"]
+
+[ext_resource type="PackedScene" uid="uid://20375b2air63" path="res://pickups/pickup.tscn" id="1_ssh0a"]
+
+[sub_resource type="Curve" id="Curve_a51dt"]
+_data = [Vector2(0.0564972, 0.296703), 0.0, 1.4, 0, 0, Vector2(0.937853, 0.032967), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_uotg6"]
+curve = SubResource("Curve_a51dt")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hkda3"]
+albedo_color = Color(1, 0.411765, 0.407843, 1)
+emission_enabled = true
+emission = Color(1, 0.0509804, 0.211765, 1)
+emission_energy_multiplier = 1.47
+emission_texture = SubResource("CurveTexture_uotg6")
+
+[node name="BulletPickup" instance=ExtResource("1_ssh0a")]
+ammount = 10
+
+[node name="AmmoMesh" parent="." index="0"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_hkda3")
