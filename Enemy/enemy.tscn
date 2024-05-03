@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_kexvc"]
 [ext_resource type="PackedScene" uid="uid://w0ax75odo1ha" path="res://components/health.tscn" id="2_6a5fl"]
-[ext_resource type="PackedScene" uid="uid://dtath7fw6h5e2" path="res://enemy/Drone.glb" id="3_w1q3l"]
+[ext_resource type="PackedScene" uid="uid://dtath7fw6h5e2" path="res://Enemy/Drone.glb" id="3_w1q3l"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kbevj"]
 
