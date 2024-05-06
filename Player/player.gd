@@ -8,7 +8,6 @@ class_name Player
 @export var aim_multiplier: float = 0.3
 @export var can_jump: bool = true
 
-
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -26,6 +25,7 @@ var mouse_motion := Vector2.ZERO
 @onready var weapon_camera: Camera3D = $SubViewportContainer/SubViewport/WeaponCamera
 @onready var original_weapon_camera_fov = weapon_camera.fov
 @onready var state_machine = $StateMachine
+
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -60,9 +60,6 @@ func _physics_process(delta):
 	handle_camera_rotation(delta)
 	# Add the gravity.
 	process_gravity(delta)
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		state_machine.transition_to("Jump", {do_jump = true})
 
 
 func direction(delta) -> Vector3:

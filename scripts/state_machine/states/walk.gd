@@ -17,7 +17,7 @@ func update(delta):
 	if !player.is_on_floor():
 		state_machine.transition_to("Jump", {})
 	
-	if Input.is_action_just_pressed("do_jump") and player.can_jump:
+	if Input.is_action_just_pressed("jump") and player.can_jump:
 		state_machine.transition_to("Jump", {do_jump = true})
 
 
