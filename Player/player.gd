@@ -1,11 +1,13 @@
 extends CharacterBody3D
+class_name Player
 
 
-@export var speed = 5.0
-@export var jump_height: float = 1.0
+@export var speed = 3.0
 @export var fall_multiplier: float = 2.5
 @export var camera_sensibility: float = 1.2
 @export var aim_multiplier: float = 0.3
+@export var can_jump: bool = true
+
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -23,6 +25,7 @@ var mouse_motion := Vector2.ZERO
 @onready var original_world_camera_fov = world_camera.fov
 @onready var weapon_camera: Camera3D = $SubViewportContainer/SubViewport/WeaponCamera
 @onready var original_weapon_camera_fov = weapon_camera.fov
+@onready var state_machine = $StateMachine
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -55,33 +58,25 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta):
 	handle_camera_rotation(delta)
-	
 	# Add the gravity.
+	process_gravity(delta)
+	# Handle jump.
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		state_machine.transition_to("Jump", {do_jump = true})
+
+
+func direction(delta) -> Vector3:
+	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	return direction
+
+
+func process_gravity(delta):
 	if not is_on_floor():
 		if velocity.y >=0:
 			velocity.y -= gravity * delta
 		else:
 			velocity.y -= gravity * delta * fall_multiplier
-
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = sqrt(jump_height * 2.0 * gravity)
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
-		if Input.is_action_pressed("aim"):
-			velocity.x *= aim_multiplier
-			velocity.z *= aim_multiplier
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-		velocity.z = move_toward(velocity.z, 0, speed)
-
-	move_and_slide()
 
 
 func _input(event):
@@ -89,7 +84,6 @@ func _input(event):
 		mouse_motion = -event.relative * 0.001
 		if Input.is_action_pressed("aim"):
 			mouse_motion *= aim_multiplier / 2
-
 
 
 func handle_camera_rotation(_delta:float) -> void:
