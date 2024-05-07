@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://djc7a37f3h0ne"]
+[gd_scene load_steps=10 format=3 uid="uid://djc7a37f3h0ne"]
 
 [ext_resource type="PackedScene" uid="uid://db8mi152yn4gx" path="res://weapons/hitscan_weapon.tscn" id="1_gcfl4"]
 [ext_resource type="PackedScene" uid="uid://qhqvktnunb03" path="res://weapons/sparks.tscn" id="2_6dmvx"]
 [ext_resource type="PackedScene" uid="uid://c7pdmnd346ave" path="res://weapons/models/SMG.glb" id="2_mpivm"]
+[ext_resource type="AudioStream" uid="uid://bfoweiatk3r30" path="res://audio/shoot_sound.wav" id="4_b4hg0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_180js"]
 emission_enabled = true
@@ -78,5 +79,8 @@ visibility_aabb = AABB(-3.57688, -4, -4, 7.15377, 8, 8)
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_fmph4")
 draw_pass_1 = SubResource("BoxMesh_8bigi")
+
+[node name="ShootSound" parent="." index="3"]
+stream = ExtResource("4_b4hg0")
 
 [editable path="SMG"]

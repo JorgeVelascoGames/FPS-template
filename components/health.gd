@@ -10,6 +10,9 @@ signal health_minimun_reached
 
 
 func damage(dmg: int) -> void:
+	if current_health == 0:
+		return
+	
 	current_health -= dmg
 	taken_damage.emit(dmg)
 	if current_health <= 0:

@@ -15,6 +15,10 @@ run/main_scene="res://levels/Sandbox.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PathfindingManager="*res://scripts/pahtfinding_manager/pathfinding_manager.gd"
+
 [input]
 
 move_forward={

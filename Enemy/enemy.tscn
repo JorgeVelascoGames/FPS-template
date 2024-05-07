@@ -1,8 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://38j6r38bon4a"]
+[gd_scene load_steps=18 format=3 uid="uid://omjxjkehmmbw"]
 
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_kexvc"]
 [ext_resource type="PackedScene" uid="uid://w0ax75odo1ha" path="res://components/health.tscn" id="2_6a5fl"]
-[ext_resource type="PackedScene" uid="uid://dtath7fw6h5e2" path="res://Enemy/Drone.glb" id="3_w1q3l"]
+[ext_resource type="PackedScene" uid="uid://dtath7fw6h5e2" path="res://enemy/Drone.glb" id="3_w1q3l"]
+[ext_resource type="AudioStream" uid="uid://cwuxb61oejc3j" path="res://audio/drone_sound.wav" id="4_6ght7"]
+[ext_resource type="AudioStream" uid="uid://dnd4d41uj4b8w" path="res://audio/drone_hit_sound.wav" id="5_rr246"]
+[ext_resource type="AudioStream" uid="uid://88pdpejlqxpf" path="res://audio/drone_dead_sound.wav" id="6_0k5ef"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kbevj"]
 
@@ -173,6 +176,23 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_lvtpo")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="EnemyAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_6ght7")
+volume_db = -5.079
+unit_size = 2.86
+pitch_scale = 1.2
+autoplay = true
+
+[node name="EnemyDamageAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_rr246")
+volume_db = -42.221
+unit_size = 32.2
+max_polyphony = 31
+
+[node name="EnemyDeadAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_0k5ef")
+volume_db = 19.048
 
 [connection signal="health_minimun_reached" from="Health" to="." method="_on_health_health_minimun_reached"]
 [connection signal="taken_damage" from="Health" to="." method="_on_health_taken_damage"]

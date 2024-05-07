@@ -15,6 +15,7 @@ var ammo_handler: AmmoHandler
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var weapon_mesh_init_position : Vector3 = weapon_mesh.position
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
+@onready var shoot_sound = $ShootSound
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,6 +37,7 @@ func shoot() -> void:
 	muzzle_flash.restart()
 	weapon_mesh.position.z += recoil
 	cooldown_timer.start(1.0/ fire_rate)
+	shoot_sound.play()
 	
 	var collider = ray_cast_3d.get_collider()
 	if collider == null:

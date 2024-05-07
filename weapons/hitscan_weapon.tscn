@@ -10,3 +10,5 @@ one_shot = true
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -100)
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]

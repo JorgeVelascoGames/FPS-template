@@ -29,6 +29,7 @@ var mouse_motion := Vector2.ZERO
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	PathfindingManager.set_up_player(self)
 
 
 func _process(delta: float) -> void:
